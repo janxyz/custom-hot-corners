@@ -90,10 +90,10 @@ class CustomHotCorner extends Layout.HotCorner {
         // but block opposite directions. Neither with X nor with Wayland
         // such barriers work.
         for (let c of Main.layoutManager.hotCorners) {
-            if (this._corner.x === c._x && this._corner.y === c._y) {
-                if (this._corner.top === c._top) {
+            if (this._corner.x === c._corner.x && this._corner.y === c._corner.y) {
+                if (this._corner.top === c._corner.top) {
                     this._corner.x += this._corner.left ? 1 : -1;
-                } else if (this._corner.left === c._left) {
+                } else if (this._corner.left === c._corner.left) {
                     this._corner.y += this._corner.top ? 1 : -1;
                 }
             }
@@ -106,20 +106,20 @@ class CustomHotCorner extends Layout.HotCorner {
             Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW
         );
 
+        this.setBarrierSize(corner.barrierSize);
         if (! this._corner.click) {
             this._pressureBarrier.connect('trigger', this._runAction.bind(this));
             this._setupFallbackCornerIfNeeded(Main.layoutManager);
 
-            this.setBarrierSize(corner.barrierSize);
-
         } else {
+            let size = 3
             this.cActor = new Clutter.Actor({
                 name: 'hot-corner',
-                x: this._corner.x, y: this._corner.y,
-                width: 4, height: 4,
-                reactive: true,
-                scale_x: this._corner.left ? 1 : -1,
-                scale_y: this._corner.top ? 1 : -1
+                x: this._corner.x + (this._corner.left ? 0 : - size),
+                y: this._corner.y + (this._corner.top  ? 0 : - size),
+                width: size,
+                height: size,
+                reactive: true
             });
             this.cActor._delegate = this;
             this.cActor.connect('button-press-event', this._onCornerClicked.bind(this));
