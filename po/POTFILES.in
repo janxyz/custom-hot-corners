@@ -1,2 +1,4 @@
 # Files with translatable strings
 prefs.js
+prefs-widget.ui
+corner-widget.ui

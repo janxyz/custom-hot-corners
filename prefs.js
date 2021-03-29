@@ -26,6 +26,7 @@ function _loadUI(file) {
 }
 
 function init() {
+    ExtensionUtils.initTranslations();
 }
 
 function buildPrefsWidget() {

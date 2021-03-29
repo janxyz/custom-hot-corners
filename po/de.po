@@ -7,33 +7,53 @@ msgid ""
 msgstr ""
 "Project-Id-Version: custom-hot-corners 0.1\n"
 "Report-Msgid-Bugs-To: janrunx@gmail.com\n"
-"POT-Creation-Date: 2017-12-08 15:59+0100\n"
-"PO-Revision-Date: 2017-12-08 16:02+0100\n"
+"POT-Creation-Date: 2021-03-29 18:39+0200\n"
+"PO-Revision-Date: 2021-03-29 18:46+0200\n"
 "Last-Translator: Jan Runge <janrunx@gmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: prefs.js:38
+#: prefs-widget.ui:71
+msgid "Show desktop requires wmctrl to be installed"
+msgstr "Für die Desktop-anzeigen-Funktion muss das Programm wmctrl installiert sein"
+
+#: corner-widget.ui:45
+msgid "Enable in fullscreen mode"
+msgstr "Im Vollbildmodus aktivieren"
+
+#: corner-widget.ui:57
+msgid "Pressure Threshold"
+msgstr "Empfindlichkeit"
+
+#: corner-widget.ui:94
+msgid "Barrier size"
+msgstr "Größe der Mausbarriere"
+
+#: corner-widget.ui:106
+msgid "Click to activate"
+msgstr "Zum Aktivieren klicken"
+
+#: corner-widget.ui:161
 msgid "-"
 msgstr "-"
 
-#: prefs.js:39
+#: corner-widget.ui:162
 msgid "Toggle overview"
 msgstr "Übersicht anzeigen"
 
-#: prefs.js:40
+#: corner-widget.ui:163
+msgid "Show applications"
+msgstr "Anwendungen anzeigen"
+
+#: corner-widget.ui:164
 msgid "Show desktop"
 msgstr "Desktop anzeigen"
 
-#: prefs.js:41
+#: corner-widget.ui:165
 msgid "Run command"
 msgstr "Befehl ausführen"
-
-#: prefs.js:43
-msgid "Show desktop requires wmctrl to be installed"
-msgstr "Für die Desktop-anzeigen-Funktion muss das Programm wmctrl installiert sein"
