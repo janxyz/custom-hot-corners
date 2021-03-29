@@ -86,19 +86,6 @@ class CustomHotCorner extends Layout.HotCorner {
         ]);
         this._actionFunction = m.get(this._corner.action) || function () {};
 
-        // Avoid pointer barriers that are at the same position
-        // but block opposite directions. Neither with X nor with Wayland
-        // such barriers work.
-        for (let c of Main.layoutManager.hotCorners) {
-            if (this._corner.x === c._corner.x && this._corner.y === c._corner.y) {
-                if (this._corner.top === c._corner.top) {
-                    this._corner.x += this._corner.left ? 1 : -1;
-                } else if (this._corner.left === c._corner.left) {
-                    this._corner.y += this._corner.top ? 1 : -1;
-                }
-            }
-        }
-
         this._enterd = false;
         this._pressureBarrier = new Layout.PressureBarrier(
             corner.pressureThreshold,
@@ -115,8 +102,8 @@ class CustomHotCorner extends Layout.HotCorner {
             let size = 3
             this.cActor = new Clutter.Actor({
                 name: 'hot-corner',
-                x: this._corner.x + (this._corner.left ? 0 : - size),
-                y: this._corner.y + (this._corner.top  ? 0 : - size),
+                x: this._corner.x + (this._corner.left ? 0 : - (size - 1)),
+                y: this._corner.y + (this._corner.top  ? 0 : - (size - 1)),
                 width: size,
                 height: size,
                 reactive: true
