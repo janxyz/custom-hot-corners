@@ -132,26 +132,44 @@ class CustomHotCorner extends Layout.HotCorner {
 
         if (size > 0) {
             const BD = Meta.BarrierDirection;
+            // workaround for bug in GS 3.36/X11 session:
+            // right vertical and bottom horizontal pointer barriers must be 1px further to match the screen edge
+            // but avoid barriers that are at the same position
+            // and block opposite directions. Neither with X nor with Wayland
+            // such barriers work.
+            let x = this._corner.x + (Meta.is_wayland_compositor() ? 0 : ((!this._corner.left && !this._barrierCollision()['x']) ? 1 : 0));
             this._verticalBarrier = new Meta.Barrier({
                 display: global.display,
-                x1: this._corner.x,
-                x2: this._corner.x,
+                x1: x,
+                x2: x,
                 y1: this._corner.y,
                 y2: this._corner.top ? this._corner.y + size : this._corner.y - size,
                 directions: this._corner.left ? BD.POSITIVE_X : BD.NEGATIVE_X
             });
+            let y = this._corner.y + (Meta.is_wayland_compositor() ? 0 : ((!this._corner.top && !this._barrierCollision()['y']) ? 1 : 0));
             this._horizontalBarrier = new Meta.Barrier({
                 display: global.display,
                 x1: this._corner.x,
                 x2: this._corner.left ? this._corner.x + size : this._corner.x - size,
-                y1: this._corner.y,
-                y2: this._corner.y,
+                y1: y,
+                y2: y,
                 directions: this._corner.top ? BD.POSITIVE_Y : BD.NEGATIVE_Y
             });
 
             this._pressureBarrier.addBarrier(this._verticalBarrier);
             this._pressureBarrier.addBarrier(this._horizontalBarrier);
         }
+    }
+
+    _barrierCollision() {
+        // workaround for bug in GS 3.36/X11 session
+        let x = false;
+        let y = false;
+        for (let c of Main.layoutManager.hotCorners) {
+            if (this._corner.x + 1 === c._corner.x) x =  true;
+            if (this._corner.y + 1 === c._corner.y) y =  true;
+        }
+        return {'x': x,'y': y};
     }
 
     // Overridden to allow all 4 monitor corners
