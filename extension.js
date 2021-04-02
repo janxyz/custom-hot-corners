@@ -86,6 +86,19 @@ class CustomHotCorner extends Layout.HotCorner {
         ]);
         this._actionFunction = m.get(this._corner.action) || function () {};
 
+        // Avoid pointer barriers that are at the same position
+        // but block opposite directions. Neither with X nor with Wayland
+        // such barriers work.
+        for (let c of Main.layoutManager.hotCorners) {
+            if (this._corner.x === c._corner.x && this._corner.y === c._corner.y) {
+                if (this._corner.top === c._corner.top) {
+                    this._corner.x += this._corner.left ? 1 : -1;
+                } else if (this._corner.left === c._corner.left) {
+                    this._corner.y += this._corner.top ? 1 : -1;
+                }
+            }
+        }
+
         this._enterd = false;
         this._pressureBarrier = new Layout.PressureBarrier(
             corner.pressureThreshold,
@@ -121,7 +134,6 @@ class CustomHotCorner extends Layout.HotCorner {
         this._ripples._ripple1.rotation_angle_z = angle;
         this._ripples._ripple2.rotation_angle_z = angle;
         this._ripples._ripple3.rotation_angle_z = angle;
-    
     }
 
     // Overridden to allow all 4 monitor corners
@@ -198,7 +210,7 @@ class CustomHotCorner extends Layout.HotCorner {
 
     _onCornerClicked(actor, event) {
         this._runAction();
-        return Clutter.EVENT_STOP;   
+        return Clutter.EVENT_STOP;
     }
 
     _runAction() {

@@ -34,8 +34,8 @@ var Corner = class Corner {
         let corners = [];
         for (let top of [true, false]) {
             for (let left of [true, false]) {
-                let x = left ? geometry.x : geometry.x + geometry.width - 1;
-                let y = top ? geometry.y : geometry.y + geometry.height - 1;
+                let x = left ? geometry.x : geometry.x + geometry.width;
+                let y = top ? geometry.y : geometry.y + geometry.height;
                 let c = new Corner(index, top, left, x, y);
                 corners.push(c);
             }
