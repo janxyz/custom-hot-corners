@@ -1,3 +1,7 @@
+# Attention
+
+This project was not updated in a long time and I decided to archive it. [Custom Hot Corners - Extended](https://github.com/G-dH/custom-hot-corners-extended) is a great alternative.
+
 # Custom Hot Corners
 
 A GNOME Shell Extension for customizable hot corners.
